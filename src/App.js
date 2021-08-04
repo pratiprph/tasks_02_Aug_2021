@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState,createContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 
 import "./styles.css";
+
+const MyContext = createContext()
+const MyProvider = MyContext.Provider
+const MyConsumer = MyContext.Consumer
 
 const BadgeComp = () => {
   const [show, setShow] = useState(false);
@@ -23,21 +27,41 @@ const BadgeComp = () => {
 const RatingCard = () => {
   const [rating, setRating] = useState([1, 2, 3, 4, 5, 6]);
 
+  function greetings(){
+    console.log("greetings")
+  }
   return (
     <div className="rate_cont">
       <ul>
         {rating.map((el) => (
-          <li key={el}>{el} |</li>
+          <li key={el}
+          onClick={greetings}
+          >{el} |</li>
         ))}
       </ul>
     </div>
   );
 };
 
-export default function App() {
-  const [display, setDisplay] = useState(false);
+const ThanksComp=()=>{
   return (
     <div>
+      thanks
+    </div>
+  )
+}
+
+export default function App() {
+  const [display, setDisplay] = useState(false);
+  const [greetings, setGreetings] = useState(false);
+
+  return (
+    <MyProvider value={{
+      greetings:greetings,
+      showGreetings:()=>setGreetings(true)
+    }}>
+    <div>
+     
       <div
         style={{
           width: "400px",
@@ -54,7 +78,16 @@ export default function App() {
           <SentimentVerySatisfiedIcon onMouseOver={() => setDisplay(true)} />
           {display ? <BadgeComp /> : null}
         </div>
+        { 
+          greetings ? <Thanks/> : null
+        }
       </div>
+      <React.Fragment>
+        {
+          greetings ? <ThanksComp/> : null
+        }
+      </React.Fragment>
     </div>
+    </MyProvider>
   );
 }
