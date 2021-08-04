@@ -13,7 +13,7 @@ const BadgeComp = () => {
   return (
     <div>
       <div className="badge" onClick={showRatings}>
-        Help us improve
+        <div>Help us improve</div>
       </div>
       {show ? <RatingCard /> : null}
     </div>
@@ -48,7 +48,7 @@ export default function App() {
         <div
           style={{
             position: "absolute",
-            bottom: "20px"
+            bottom: "70px"
           }}
         >
           <SentimentVerySatisfiedIcon onMouseOver={() => setDisplay(true)} />
