@@ -1,4 +1,4 @@
-import React, { useState,createContext } from "react";
+import React, { useState,createContext,useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 //import { useHistory } from "react-router-dom";
 
@@ -30,8 +30,20 @@ const RatingCard = () => {
   //const history = useHistory();
   console.log(history)
   function greetings(){
-    
+    // fetch('/api', {
+    //   method: 'POST',
+    //   body: rating,
+    // })
+    //   .then(res => res.json())
+    //   .then(json => console.log(json))
   }
+ 
+   useEffect(()=>{
+     fetch('http://localhost:3001/api')
+       .then(res=>res.json())
+       .then(res=>console.log(res))
+   })
+
   function goBack(){
     history.go('/')
   }
