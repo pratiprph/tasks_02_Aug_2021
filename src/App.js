@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 
 import "./styles.css";
+import { resolveModuleName } from "typescript";
 
 const MyContext = createContext()
 const MyProvider = MyContext.Provider
@@ -26,7 +27,7 @@ const BadgeComp = () => {
 };
 
 const RatingCard = () => {
-  const [rating, setRating] = useState([1, 2, 3, 4, 5, 6]);
+  const [rating, setRating] = useState({});
   //const history = useHistory();
   console.log(history)
   function greetings(){
@@ -41,9 +42,10 @@ const RatingCard = () => {
    useEffect(()=>{
      fetch('http://localhost:3001/api')
        .then(res=>res.json())
-       .then(res=>console.log(res))
-   })
-
+       .then(res=>setRating(res))
+   },[])
+ 
+   const rates = Object.keys(rating)
   function goBack(){
     history.go('/')
   }
@@ -53,7 +55,7 @@ const RatingCard = () => {
        onClick={goBack}
       >&times;</span>
       <ul>
-        {rating.map((el) => (
+        {rates.map((el) => (
           <li key={el}
           onClick={greetings}
           >{el} |</li>
