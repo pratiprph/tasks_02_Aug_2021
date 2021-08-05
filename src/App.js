@@ -1,5 +1,6 @@
 import React, { useState,createContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+//import { useHistory } from "react-router-dom";
 
 import SentimentVerySatisfiedIcon from "@material-ui/icons/SentimentVerySatisfied";
 
@@ -26,12 +27,19 @@ const BadgeComp = () => {
 
 const RatingCard = () => {
   const [rating, setRating] = useState([1, 2, 3, 4, 5, 6]);
-
+  //const history = useHistory();
+  console.log(history)
   function greetings(){
-    console.log("greetings")
+    
+  }
+  function goBack(){
+    history.go('/')
   }
   return (
     <div className="rate_cont">
+      <span className="close" style={{position:"absolute",right:"15px"}}
+       onClick={goBack}
+      >&times;</span>
       <ul>
         {rating.map((el) => (
           <li key={el}
@@ -51,10 +59,10 @@ const ThanksComp=()=>{
   )
 }
 
-export default function App() {
+export default function App(props) {
   const [display, setDisplay] = useState(false);
   const [greetings, setGreetings] = useState(false);
-
+ console.log(props)
   return (
     <MyProvider value={{
       greetings:greetings,
@@ -72,15 +80,13 @@ export default function App() {
         <div
           style={{
             position: "absolute",
-            bottom: "70px"
+            bottom: "150px"
           }}
         >
           <SentimentVerySatisfiedIcon onMouseOver={() => setDisplay(true)} />
           {display ? <BadgeComp /> : null}
         </div>
-        { 
-          greetings ? <Thanks/> : null
-        }
+       
       </div>
       <React.Fragment>
         {
