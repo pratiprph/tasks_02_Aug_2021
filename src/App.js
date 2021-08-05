@@ -28,19 +28,21 @@ const BadgeComp = () => {
 
 const RatingCard = () => {
   const [rating, setRating] = useState({});
+  const [thanks,setThanks] = useState(false)
   //const history = useHistory();
   console.log(history)
   function greetings(){
-    // fetch('/api', {
-    //   method: 'POST',
-    //   body: rating,
-    // })
-    //   .then(res => res.json())
-    //   .then(json => console.log(json))
+    fetch('http://localhost:8080/api', {
+      method: 'POST',
+      body: rating,
+    })
+      .then(res => res.json())
+      .then(json => console.log(json))
+      setThanks(true)
   }
  
    useEffect(()=>{
-     fetch('http://localhost:3001/api')
+     fetch('http://localhost:8080/api')
        .then(res=>res.json())
        .then(res=>setRating(res))
    },[])
@@ -54,21 +56,34 @@ const RatingCard = () => {
       <span className="close" style={{position:"absolute",right:"15px",cursor: "pointer"}}
        onClick={goBack}
       >&times;</span>
-      <ul>
+      {
+        thanks ? <ThanksComp/>
+        :
+        <ul>
         {rates.map((el) => (
           <li key={el}
           onClick={greetings}
           >{el} |</li>
         ))}
       </ul>
+      }
     </div>
   );
 };
 
 const ThanksComp=()=>{
   return (
-    <div>
-      thanks
+    <div style={{
+        width:"300px",
+        height:"70px",
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor:"whitesmoke"
+    }}>
+      <span>
+      <SentimentVerySatisfiedIcon/> Thank you, tell us more !
+      </span>
     </div>
   )
 }

@@ -1,0 +1,6 @@
+// To run application
+TASK>cd server
+
+then
+
+TASK>server>npm run dev
