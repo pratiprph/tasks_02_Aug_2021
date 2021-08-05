@@ -51,7 +51,7 @@ const RatingCard = () => {
   }
   return (
     <div className="rate_cont">
-      <span className="close" style={{position:"absolute",right:"15px"}}
+      <span className="close" style={{position:"absolute",right:"15px",cursor: "pointer"}}
        onClick={goBack}
       >&times;</span>
       <ul>

@@ -37,6 +37,7 @@
   border:1px solid whitesmoke;
   border-radius: 4px;
   background-color: whitesmoke;
+  cursor: pointer;
 }
 
 /* .rate_cont ul li {
